@@ -35,8 +35,8 @@ class App extends Component {
       lastActive: -1,
       lastActivePosition: -1,
       guessCount: 0,
-      start: false,
-      success: false,
+      start: true,
+      success: true,
       disbleClick: false,
       level: 1
     };
@@ -271,7 +271,7 @@ class App extends Component {
     } else {
       if (success) {
         finalComponent = <div className="success-div">
-          <h1>SUCCESS</h1>
+          <h3>SUCCESS</h3>
           <div>
             { levelUpComponent }
             <button className="button-class" onClick={() => this.onStartClick()}>Restart</button>
