@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 
-import './App.css';
-
 import angry from './assets/images/icon-angry.png';
 import cool from './assets/images/icon-cool.png';
 import happy from './assets/images/icon-happy.png';
