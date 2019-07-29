@@ -25,7 +25,7 @@ class App extends Component {
     super(context, props);
 
     this.state = {
-      gridSize: 4,
+      gridSize: 6,
       originalImageArray: [
         happy, angry, lol, cool, evil, love, kiss, neutral, puzzled, sad, surprised, tongue, wink, face, hand, swearing, drama, comedy
       ],
@@ -38,7 +38,9 @@ class App extends Component {
       start: true,
       success: true,
       disbleClick: false,
-      level: 1
+      level: 2,
+      score: 0,
+      maxScore: 0
     };
 
   }
@@ -46,10 +48,11 @@ class App extends Component {
   componentDidMount() {
     let localData = JSON.parse(localStorage.getItem('memory-game-level'));
     if (localData) {
-      let {level, gridSize} = localData;
+      let {level, gridSize,maxScore} = localData;
       this.setState({
         level,
-        gridSize
+        gridSize,
+        maxScore
       });
     }
   }
@@ -137,7 +140,8 @@ class App extends Component {
   onItemClick(context) {
     let position = context.target.id;
     
-    let {activeArray,lastActive,gridArray,lastActivePosition,guessCount,imageArray,success,disbleClick} = this.state;
+    let {activeArray,lastActive,gridArray,lastActivePosition,guessCount,
+      imageArray,success,score,disbleClick,level,gridSize,maxScore} = this.state;
 
     let gridArrayValue = gridArray[position];
 
@@ -153,6 +157,7 @@ class App extends Component {
           guessCount++;
           lastActive = -1;
           lastActivePosition = -1;
+          score += 20;
 
           success = guessCount === imageArray.length;
 
@@ -161,12 +166,16 @@ class App extends Component {
           activeArray[position] = true;
           disbleClick = true;
 
+          if (score >= 5) {
+            score -= 5;
+          }
+
           setTimeout(function() {
             activeArray[lastActivePosition] = false;
             activeArray[position] = false;
             disbleClick = false;
             lastActive = -1;
-            lastActivePosition = -1
+            lastActivePosition = -1;
 
             this.setState({
               activeArray,
@@ -178,13 +187,21 @@ class App extends Component {
         }
       }
 
+      if (success) {
+        if (maxScore < score) {
+          maxScore = score;
+        }
+        localStorage.setItem('memory-game-level', JSON.stringify({level, gridSize, maxScore}));
+      }
+
       this.setState({
         activeArray,
         lastActive,
         lastActivePosition,
         guessCount,
         success,
-        disbleClick
+        disbleClick,
+        score
       });
     }
   }
@@ -205,10 +222,14 @@ class App extends Component {
   }
 
   onLevelUp() {
-    let {level, gridSize} = this.state;
+    let {level, gridSize,score,maxScore} = this.state;
     level++;
     gridSize += 2;
 
+    if (maxScore < score) {
+      maxScore = score;
+    }
+
     this.setState({
       imageArray: [],
       gridSize: gridSize,
@@ -220,18 +241,24 @@ class App extends Component {
       guessCount: 0,
       start: false,
       success: false,
-      disbleClick: false
+      disbleClick: false,
+      score: 0,
+      maxScore
     }, function() {
       this.resetComponent();
     });
 
-    localStorage.setItem('memory-game-level', JSON.stringify({level, gridSize}));
+    localStorage.setItem('memory-game-level', JSON.stringify({level, gridSize, maxScore}));
   }
 
   onLevelDown() {
-    let {level, gridSize} = this.state;
+    let {level, gridSize, score, maxScore} = this.state;
     level--;
     gridSize -= 2;
+
+    if (maxScore < score) {
+      maxScore = score;
+    }
 
     this.setState({
       imageArray: [],
@@ -244,16 +271,24 @@ class App extends Component {
       guessCount: 0,
       start: false,
       success: false,
-      disbleClick: false
+      disbleClick: false,
+      score: 0,
+      maxScore
     }, function() {
       this.resetComponent();
     });
 
-    localStorage.setItem('memory-game-level', JSON.stringify({level, gridSize}));
+    localStorage.setItem('memory-game-level', JSON.stringify({level, gridSize, maxScore}));
   }
 
   render() {
-    let {gridSize,gridArray,imageArray,activeArray,success,start,level} = this.state;
+    let {gridSize,gridArray,imageArray,activeArray,success,start,level,maxScore,score} = this.state;
+    
+    let maxScoreComponent = null;
+    if (maxScore && maxScore > 0) {
+      maxScoreComponent = (<h5>Max Score: {maxScore}</h5>);
+    }
+    
     let finalComponent = null;
     
     let levelUpComponent = null;
@@ -308,8 +343,13 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>Memory Game</h1>
-        <span>Guess the pair</span>
+        <h1>Match Pair Memory Game</h1>
+        <div className="score-parent-div">
+          <div className="score-div">
+            { maxScoreComponent }
+            <h5>Score: { score }</h5>
+          </div>
+        </div>
         <div className="game-div">
           <div className="parent-grid">
             { finalComponent }
