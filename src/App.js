@@ -25,7 +25,7 @@ class App extends Component {
     super(context, props);
 
     this.state = {
-      gridSize: 6,
+      gridSize: 4,
       originalImageArray: [
         happy, angry, lol, cool, evil, love, kiss, neutral, puzzled, sad, surprised, tongue, wink, face, hand, swearing, drama, comedy
       ],
@@ -35,10 +35,10 @@ class App extends Component {
       lastActive: -1,
       lastActivePosition: -1,
       guessCount: 0,
-      start: true,
-      success: true,
+      start: false,
+      success: false,
       disbleClick: false,
-      level: 2,
+      level: 1,
       score: 0,
       maxScore: 0
     };
