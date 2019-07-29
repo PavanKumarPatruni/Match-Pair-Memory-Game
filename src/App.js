@@ -301,7 +301,10 @@ class App extends Component {
     if (!start) {
       finalComponent = <div className="success-div">
         <h3>LEVEL {level}</h3>
-        <button className="button-class" onClick={() => this.onStartClick()}>Start</button>
+        <div>
+          { levelUpComponent }
+          <button className="button-class" onClick={() => this.onStartClick()}>Start</button>
+        </div>
       </div>
     } else {
       if (success) {
