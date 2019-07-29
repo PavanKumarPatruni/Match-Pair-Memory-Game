@@ -295,7 +295,7 @@ class App extends Component {
     if (level === 1) {
       levelUpComponent = <button className="button-class level-up" onClick={() => this.onLevelUp()}>Level Up</button>
     } else {
-      levelUpComponent = <button className="button-class level-up" onClick={() => this.onLevelDown()}>Start Again</button>
+      levelUpComponent = <button className="button-class level-up" onClick={() => this.onLevelDown()}>Level 1</button>
     }
 
     if (!start) {
