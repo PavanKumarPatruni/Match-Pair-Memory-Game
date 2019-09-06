@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Match-Pair-Memory-Game/static/css/main.0f1cb0c1.chunk.css",
+    "main.js": "/Match-Pair-Memory-Game/static/js/main.9d785e9e.chunk.js",
+    "main.js.map": "/Match-Pair-Memory-Game/static/js/main.9d785e9e.chunk.js.map",
+    "runtime~main.js": "/Match-Pair-Memory-Game/static/js/runtime~main.e1f29a30.js",
+    "runtime~main.js.map": "/Match-Pair-Memory-Game/static/js/runtime~main.e1f29a30.js.map",
+    "static/js/2.987e4499.chunk.js": "/Match-Pair-Memory-Game/static/js/2.987e4499.chunk.js",
+    "static/js/2.987e4499.chunk.js.map": "/Match-Pair-Memory-Game/static/js/2.987e4499.chunk.js.map",
+    "index.html": "/Match-Pair-Memory-Game/index.html",
+    "precache-manifest.e1a58339a8290698cbf7fed5f68a14d4.js": "/Match-Pair-Memory-Game/precache-manifest.e1a58339a8290698cbf7fed5f68a14d4.js",
+    "service-worker.js": "/Match-Pair-Memory-Game/service-worker.js",
+    "static/css/main.0f1cb0c1.chunk.css.map": "/Match-Pair-Memory-Game/static/css/main.0f1cb0c1.chunk.css.map"
+  }
+}
